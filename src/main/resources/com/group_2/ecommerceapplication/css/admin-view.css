@@ -1,0 +1,57 @@
+.intro {
+    -fx-font-family: "Satisfy";
+    -fx-font-size: 30;
+}
+
+.header {
+    -fx-background-color: #fff;
+}
+
+.search-field {
+    -fx-background-color: transparent;
+    -fx-border-radius: 50px;
+    -fx-border-width: 2px;
+    -fx-border-color: #D7D7D7;
+}
+
+.nav-bar {
+    -fx-background-color: #fff;
+}
+
+.btn {
+    -fx-background-color: transparent;
+}
+
+.btn:hover {
+    -fx-background-color: lightgray;
+}
+
+.stats {
+    -fx-background-color: #fff;
+    -fx-background-radius: 20px;
+    -fx-border-width: 0.8px;
+
+}
+
+.products {
+    -fx-background-color: #fff;
+    -fx-background-radius: 20px;
+    -fx-border-width: 0.8px;
+}
+
+.shadow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px;
+    -fx-border-width: 0.8px;
+}
+
+.stats-component {
+    -fx-background-color: linear-gradient(to left bottom, #24ff72, #2196F3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+    -fx-background-radius: 20px;
+
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" styleClass="gradient" stylesheets="@css/login-view.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group_2.ecommerceapplication.controller.LoginController">
+    <right>
+        <AnchorPane fx:id="parent" prefHeight="200.0" prefWidth="350.0" styleClass="login_form" stylesheets="@css/login-view.css" translateX="400.0" BorderPane.alignment="CENTER">
+            <children>
+            <AnchorPane fx:id="su_form" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="350.0" translateX="400.0" visible="false" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
+               <children>
+                      <VBox alignment="CENTER" prefHeight="238.0" prefWidth="261.0" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="178.0">
+                          <children>
+                              <TextField fx:id="su_username" prefHeight="30.0" prefWidth="200.0" promptText="Username" styleClass="input-field" stylesheets="@css/login-view.css">
+                                  <font>
+                                      <Font name="Roboto" size="14.0" />
+                                  </font>
+                              </TextField>
+                              <Separator opacity="0.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="200.0" />
+                              <PasswordField fx:id="su_password" prefHeight="30.0" prefWidth="200.0" promptText="Password" styleClass="input-field" stylesheets="@css/login-view.css" />
+                              <Separator opacity="0.0" orientation="VERTICAL" prefHeight="21.0" prefWidth="250.0" />
+                        <TextField fx:id="su_email" prefHeight="30.0" prefWidth="200.0" promptText="Email" styleClass="input-field" stylesheets="@css/login-view.css">
+                           <font>
+                              <Font name="Roboto" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Separator opacity="0.0" orientation="VERTICAL" prefHeight="22.0" prefWidth="250.0" />
+                              <Button fx:id="register_btn" mnemonicParsing="false" prefHeight="50.0" prefWidth="194.0" styleClass="login-btn" stylesheets="@css/login-view.css" text="Register">
+                                  <font>
+                                      <Font name="Roboto Bold" size="14.0" />
+                                  </font>
+                              </Button>
+                          </children>
+                      </VBox>
+                      <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="329.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="43.0">
+                          <image>
+                              <Image url="@img/user.png" />
+                          </image>
+                      </ImageView>
+                  <Hyperlink fx:id="sign_in_link" layoutX="51.0" layoutY="416.0" onAction="#sign_in_link" prefHeight="32.0" prefWidth="249.0" text="If you have account, back to sign in" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="416.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="si_form" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="350.0" translateX="400.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="250.0" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="178.0">
+                     <children>
+                        <TextField fx:id="si_username" prefHeight="30.0" prefWidth="200.0" promptText="Username" styleClass="input-field" stylesheets="@css/login-view.css">
+                           <font>
+                              <Font name="Roboto" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Separator opacity="0.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="200.0" />
+                        <PasswordField fx:id="si_password" prefHeight="30.0" prefWidth="200.0" promptText="Password" styleClass="input-field" stylesheets="@css/login-view.css" />
+                        <Separator opacity="0.0" orientation="VERTICAL" prefHeight="33.0" prefWidth="250.0" />
+                        <Button fx:id="login_btn" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="194.0" styleClass="login-btn" stylesheets="@css/login-view.css" text="Login">
+                           <font>
+                              <Font name="Roboto Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="329.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="43.0">
+                     <image>
+                        <Image url="@img/user.png" />
+                     </image>
+                  </ImageView>
+                  <Hyperlink fx:id="register_link" onAction="#register_link" text="If you don't have any account? Let's register" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="383.0" />
+               </children>
+            </AnchorPane>
+            </children>
+        </AnchorPane>
+    </right>
+    <center>
+        <AnchorPane prefHeight="500.0" prefWidth="449.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="intro_form1" layoutY="177.0" styleClass="intro" stylesheets="@css/login-view.css" text="Hello, my friend" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="23.0" />
+                    </font>
+                </Label>
+                <Label fx:id="intro_form2" layoutX="133.0" styleClass="intro" stylesheets="@css/login-view.css" text="Welcome back" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="23.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

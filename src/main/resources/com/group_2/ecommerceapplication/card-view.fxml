@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group_2.ecommerceapplication.controller.CardController">
+   <children>
+      <Separator opacity="0.0" orientation="VERTICAL" prefHeight="0.0" prefWidth="75.0" />
+      <ImageView fx:id="product_img" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/op_dien_thoai1.jpeg" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="14.0" prefWidth="300.0" />
+            <Label fx:id="product_name" alignment="TOP_LEFT" prefHeight="51.0" prefWidth="246.0" text="Silicone Ốp Điện Thoại Silicon Dẻo Họa Tiết Trái Tim Cổ Điển Chống Sốc Cho iphone 14 13 12 11 pro max xs x xr 8 + 7 plus" wrapText="true">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="250.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="230.0">
+               <children>
+                  <Label prefHeight="16.0" prefWidth="19.0" text="đ" textFill="#f88901">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="product_price" prefHeight="16.0" prefWidth="65.0" text="69.000" textFill="#f88901">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Separator opacity="0.0" prefHeight="15.0" prefWidth="75.0" />
+                  <Label prefHeight="16.0" prefWidth="59.0" text="Đã bán:" textFill="#8a8a8a" />
+                  <Label fx:id="product_sold" prefHeight="16.0" prefWidth="33.0" text="0" textFill="#8a8a8a" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

@@ -1,0 +1,36 @@
+.gradient {
+    -fx-background-color: linear-gradient(to bottom right, #22c1c3, #fdbb2d);
+}
+
+.login_form {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 50px 0 0 50px;
+}
+
+.input-field {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #22c1c3, #fdbb2d);
+    -fx-border-width: 1.5px;
+}
+
+.login-btn {
+    -fx-padding: 14px 28px;
+    -fx-background-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-pointer: pointer;
+    -fx-border-color: #2196F3;
+}
+
+.login-btn:hover {
+    -fx-background-color: #2196F3;
+    -fx-color: white;
+    -fx-border-radius: 10px;
+    -fx-text-fill: #fff;
+}
+
+.intro {
+    -fx-font-family: "Satisfy";
+    -fx-font-size: 30;
+}
