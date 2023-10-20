@@ -7,6 +7,9 @@ module com.group_2.ecommerceapplication {
     requires org.json;
     requires static lombok;
     requires java.net.http;
+    requires org.apache.httpcomponents.httpcore;
+    requires org.apache.httpcomponents.httpclient;
+    requires org.apache.httpcomponents.httpmime;
 
 
     opens com.group_2.ecommerceapplication to javafx.fxml;

@@ -2,6 +2,7 @@ package com.group_2.ecommerceapplication.controller;
 
 import com.group_2.ecommerceapplication.MainApplication;
 import com.group_2.ecommerceapplication.model.Product;
+import com.group_2.ecommerceapplication.util.AppConstant;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,7 +23,7 @@ public class CardController {
     private Label product_sold;
 
     public void setData(Product product) {
-        Image image = new Image(String.valueOf(MainApplication.class.getResource(product.getImageSrc())));
+        Image image = new Image(AppConstant.API_LINK.get("images") + "/" + product.getImageSrc());
         product_img.setImage(image);
         product_name.setText(product.getName());
         product_price.setText(String.valueOf(product.getPrice()));

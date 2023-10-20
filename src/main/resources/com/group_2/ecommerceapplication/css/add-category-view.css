@@ -1,0 +1,19 @@
+.input-field {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to left bottom, #24ff72, #2196F3);
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.submit-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to left bottom, #24ff72, #2196F3);
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.submit-btn:hover {
+    -fx-background-color: linear-gradient(to left bottom, #24ff72, #2196F3);
+    -fx-background-radius: 10px;
+    -fx-text-fill: #fff;
+}

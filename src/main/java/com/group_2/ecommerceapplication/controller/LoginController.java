@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.http.client.methods.HttpPost;
 
 import java.io.IOException;
 import java.net.URI;
@@ -107,11 +108,13 @@ public class LoginController
         try {
             String body = mapper.writer()
                                 .writeValueAsString(loginInfo);
+
             HttpRequest request = HttpRequest.newBuilder()
                                              .uri(URI.create(AppConstant.BASE_URL + "/auth/login"))
                                              .header("Content-type", "application/json")
                                              .POST(HttpRequest.BodyPublishers.ofString(body))
                                              .build();
+
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             int statusCode = response.statusCode();
             if (statusCode <= 299 & statusCode >= 200) {
@@ -119,6 +122,8 @@ public class LoginController
                 JWTResponse jwtResponse = mapper.readValue(jsonResponse, JWTResponse.class);
                 String token = jwtResponse.getAccessToken();
                 if (JWTDecoded.isAdmin(token)) {
+                    AppConstant.username = loginInfo.get("usernameOrEmail");
+                    AppConstant.token = jwtResponse.getTokenType() + " " + jwtResponse.getAccessToken();
                     FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("admin-view.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
@@ -141,8 +146,7 @@ public class LoginController
 
                     stage.show();
                 }
-                AppConstant.username = loginInfo.get("username");
-                AppConstant.token = jwtResponse.getTokenType() + " " + jwtResponse.getAccessToken();
+
 
                 si_form.getScene()
                        .getWindow()
@@ -151,14 +155,8 @@ public class LoginController
                 showAlert(Alert.AlertType.ERROR, "Incorrect username or password");
             }
 
-        } catch (InterruptedException e) {
-            showAlert(Alert.AlertType.ERROR, "Error 1");
-
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Unable connect to Server");
-
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error 3");
+           e.printStackTrace();
         }
 
 

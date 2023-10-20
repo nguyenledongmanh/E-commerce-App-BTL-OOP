@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group_2.ecommerceapplication.controller.CategoryController">
+    <children>
+        <VBox prefHeight="100.0" prefWidth="401.0" styleClass="card" stylesheets="@css/card-view.css">
+            <children>
+                <Label fx:id="category_name" prefHeight="44.0" prefWidth="125.0" text="Category name">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+            <HBox prefHeight="61.0" prefWidth="401.0">
+               <children>
+                  <Label prefHeight="57.0" prefWidth="162.0" text="Number of products: ">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="number_of_products" prefHeight="58.0" prefWidth="51.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            </children>
+        </VBox>
+    </children>
+</HBox>
