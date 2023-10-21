@@ -46,6 +46,7 @@ public class AdminController
     List<Category> categories;
     List<Product> products;
     URI fileChosen;
+    File file;
 
     @FXML
     private ComboBox<Category> category_options;
@@ -164,7 +165,6 @@ public class AdminController
 
     @FXML
     void pro_submit(ActionEvent e) {
-        File file = null;
         try {
             Map<String, Object> pro_info = new HashMap<>();
             pro_info.put("name", pro_name.getText()
@@ -182,10 +182,10 @@ public class AdminController
                                                        .getId());
 
             if (fileChosen == null) {
-                pro_info.put("imageSrc", null);
+                pro_info.put("imgSrc", null);
             } else {
                 file = new File(fileChosen);
-                pro_info.put("imageSrc", file.getName());
+                pro_info.put("imgSrc", file.getName());
             }
 
             String body = mapper.writer()
@@ -207,7 +207,7 @@ public class AdminController
                 int productId = (int) ((Map<?, ?>) proObj).get("id");
 
                 MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-                assert file != null;
+
                 builder.addPart("image", new FileBody(file));
                 builder.addTextBody("name", file.getName());
                 builder.addTextBody("productId", String.valueOf(productId));
@@ -224,7 +224,7 @@ public class AdminController
                 if (status <= 299 && status >= 200) {
                     product.setId(productId);
                     product.setName((String) ((Map<?, ?>) proObj).get("name"));
-                    product.setImageSrc(file.getName());
+                    product.setImgSrc(file.getName());
                     product.setSold((int) ((Map<?, ?>) proObj).get("quantity"));
                     product.setPrice((double) ((Map<?, ?>) proObj).get("price"));
                     products.add(product);
@@ -235,7 +235,7 @@ public class AdminController
                     num_of_products.setText(String.valueOf(products.size()));
 
                 } else {
-                    showAlert(Alert.AlertType.ERROR,"Image exist by this name");
+                    showAlert(Alert.AlertType.ERROR, "Image exist by this name");
                 }
             } else {
                 Object response_obj = mapper.readValue(response.body(), Object.class);
@@ -366,6 +366,9 @@ public class AdminController
             prompt_products.setVisible(true);
             return;
         }
+
+        products_pane.setVisible(true);
+        prompt_products.setVisible(false);
         int column = 0;
         int row = 1;
         for (Product product : products) {
@@ -493,7 +496,7 @@ public class AdminController
         product.setPrice((double) p_val.get("price"));
 
         HttpResponse<String> img_res = getImgByProductId(product.getId());
-        product.setImageSrc(img_res.body());
+        product.setImgSrc(img_res.body());
         return product;
     }
 

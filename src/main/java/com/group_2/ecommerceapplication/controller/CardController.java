@@ -23,7 +23,7 @@ public class CardController {
     private Label product_sold;
 
     public void setData(Product product) {
-        Image image = new Image(AppConstant.API_LINK.get("images") + "/" + product.getImageSrc());
+        Image image = new Image(AppConstant.API_LINK.get("images") + "/" + product.getImgSrc());
         product_img.setImage(image);
         product_name.setText(product.getName());
         product_price.setText(String.valueOf(product.getPrice()));
