@@ -103,6 +103,10 @@ public class AdminController
     private Button products_btn;
     @FXML
     private Label username_field;
+    @FXML
+    private ScrollPane products_pane;
+    @FXML
+    private Label prompt_products;
 
     @FXML
     void choose_file(ActionEvent event) throws
@@ -154,29 +158,36 @@ public class AdminController
                 throw new Exception("INTERNAL_SERVER_ERROR");
 
         } catch (Exception e) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("INTERNAL_SERVER_ERROR");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "INTERNAL_SERVER_ERROR");
         }
     }
 
     @FXML
     void pro_submit(ActionEvent e) {
-        Map<String, Object> pro_info = new HashMap<>();
-        pro_info.put("name", pro_name.getText()
-                                     .trim());
-        pro_info.put("desc", pro_desc.getText()
-                                     .trim());
-        pro_info.put("sku", pro_sku.getText()
-                                   .trim());
-        pro_info.put("price", Double.parseDouble(pro_price.getText()
-                                                          .trim()));
-        pro_info.put("quantity", Integer.parseInt(pro_quantity.getText()
-                                                              .trim()));
-        pro_info.put("categoryId", category_options.getSelectionModel()
-                                                   .getSelectedItem()
-                                                   .getId());
+        File file = null;
         try {
+            Map<String, Object> pro_info = new HashMap<>();
+            pro_info.put("name", pro_name.getText()
+                                         .trim());
+            pro_info.put("desc", pro_desc.getText()
+                                         .trim());
+            pro_info.put("sku", pro_sku.getText()
+                                       .trim());
+            pro_info.put("price", Double.parseDouble(pro_price.getText()
+                                                              .trim()));
+            pro_info.put("quantity", Integer.parseInt(pro_quantity.getText()
+                                                                  .trim()));
+            pro_info.put("categoryId", category_options.getSelectionModel()
+                                                       .getSelectedItem()
+                                                       .getId());
+
+            if (fileChosen == null) {
+                pro_info.put("imageSrc", null);
+            } else {
+                file = new File(fileChosen);
+                pro_info.put("imageSrc", file.getName());
+            }
+
             String body = mapper.writer()
                                 .writeValueAsString(pro_info);
             HttpRequest post_Request = HttpRequest.newBuilder()
@@ -195,8 +206,8 @@ public class AdminController
                 Object proObj = mapper.readValue(proJson, Object.class);
                 int productId = (int) ((Map<?, ?>) proObj).get("id");
 
-                File file = new File(fileChosen);
                 MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+                assert file != null;
                 builder.addPart("image", new FileBody(file));
                 builder.addTextBody("name", file.getName());
                 builder.addTextBody("productId", String.valueOf(productId));
@@ -217,29 +228,30 @@ public class AdminController
                     product.setSold((int) ((Map<?, ?>) proObj).get("quantity"));
                     product.setPrice((double) ((Map<?, ?>) proObj).get("price"));
                     products.add(product);
-
                     clearProductInfo();
 
-                    alert.setAlertType(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Product is added successfully..!");
-                    alert.show();
+                    showAlert(Alert.AlertType.INFORMATION, "Product is added successfully..!");
 
                     num_of_products.setText(String.valueOf(products.size()));
 
                 } else {
-                    alert.setAlertType(Alert.AlertType.ERROR);
-                    alert.setContentText("Image exist by this name");
-                    alert.show();
+                    showAlert(Alert.AlertType.ERROR,"Image exist by this name");
                 }
             } else {
+                Object response_obj = mapper.readValue(response.body(), Object.class);
+                Map<?, ?> res_map = (Map<?, ?>) response_obj;
+                StringBuilder content = new StringBuilder();
+                res_map.forEach((key, value) -> content.append(key.toString())
+                                                       .append(": ")
+                                                       .append(value.toString())
+                                                       .append("\n"));
+
                 alert.setAlertType(Alert.AlertType.ERROR);
-                alert.setContentText("INTERNAL_SERVER_ERROR");
+                alert.setContentText(String.valueOf(content));
                 alert.show();
             }
         } catch (Exception ex) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("INTERNAL_SERVER_ERROR");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "CHECK THE VALUE IN FIELDS");
         }
 
     }
@@ -248,30 +260,35 @@ public class AdminController
     void switchForm(ActionEvent event) throws
             IOException,
             InterruptedException {
-        init_update();
         if (event.getSource() == products_btn) {
             product_layout.setVisible(true);
             categories_layout.setVisible(false);
             add_category_layout.setVisible(false);
             add_product_layout.setVisible(false);
+            init_update();
             update_products();
         } else if (event.getSource() == categories_btn) {
             product_layout.setVisible(false);
             categories_layout.setVisible(true);
             add_category_layout.setVisible(false);
             add_product_layout.setVisible(false);
+            init_update();
             update_categories();
         } else if (event.getSource() == add_category_btn) {
             product_layout.setVisible(false);
             categories_layout.setVisible(false);
             add_category_layout.setVisible(true);
             add_product_layout.setVisible(false);
+            init_update();
+            update_products();
         } else if (event.getSource() == add_product_btn) {
             product_layout.setVisible(false);
             categories_layout.setVisible(false);
             add_category_layout.setVisible(false);
             add_product_layout.setVisible(true);
             category_options.setItems(FXCollections.observableArrayList(categories));
+            init_update();
+            update_products();
         }
     }
 
@@ -288,6 +305,11 @@ public class AdminController
 
         init_update();
         update_products();
+
+        if (!this.products.isEmpty()) {
+            products_pane.setVisible(true);
+            prompt_products.setVisible(false);
+        }
 
         category_options.setItems(FXCollections.observableArrayList(categories));
     }
@@ -328,15 +350,22 @@ public class AdminController
 
             List<?> proContent = (List<?>) productsJson.get("content");
             init_update_pro(proContent);
+
+
         } catch (URISyntaxException | ExecutionException | InterruptedException | IOException e) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("INTERNAL_SERVER_ERROR");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "INTERNAL_SERVER_ERROR");
         }
     }
 
 
     private void update_products() {
+        product_container.getChildren()
+                         .clear();
+        if (this.products.isEmpty()) {
+            products_pane.setVisible(false);
+            prompt_products.setVisible(true);
+            return;
+        }
         int column = 0;
         int row = 1;
         for (Product product : products) {
@@ -412,7 +441,7 @@ public class AdminController
             Object o = mapper.readValue(pro_response.body(), Object.class);
             List<?> products_of_cat = (List<?>) o;
             List<Product> productList = new ArrayList<>();
-            for (Object p: products_of_cat) {
+            for (Object p : products_of_cat) {
                 Map<?, ?> p_val = (Map<?, ?>) p;
                 Product product = setProductByMap(p_val);
                 productList.add(product);
@@ -466,5 +495,11 @@ public class AdminController
         HttpResponse<String> img_res = getImgByProductId(product.getId());
         product.setImageSrc(img_res.body());
         return product;
+    }
+
+    private void showAlert(Alert.AlertType type, String content) {
+        alert.setAlertType(type);
+        alert.setContentText(content);
+        alert.show();
     }
 }

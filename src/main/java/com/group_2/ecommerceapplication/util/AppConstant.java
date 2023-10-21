@@ -26,6 +26,8 @@ public class AppConstant {
         link.put("products", BASE_URL + "/products");
         link.put("categories", BASE_URL + "/categories");
         link.put("images", BASE_URL + "/images");
+        link.put("login", BASE_URL + "/auth/login");
+        link.put("register", BASE_URL + "/auth/register");
         return link;
     }
 }

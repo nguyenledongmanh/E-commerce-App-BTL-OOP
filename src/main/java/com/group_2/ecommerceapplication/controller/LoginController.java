@@ -15,9 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.http.client.methods.HttpPost;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.http.HttpClient;
@@ -80,6 +78,7 @@ public class LoginController
     private TextField su_username;
 
 
+    // Change to register form
     @FXML
     void register_link(ActionEvent event) {
         si_slide.setToX(400);
@@ -90,6 +89,7 @@ public class LoginController
         su_slide.play();
     }
 
+    // Change to login form
     @FXML
     void sign_in_link(ActionEvent event) {
         su_slide.setToX(400);
@@ -97,6 +97,44 @@ public class LoginController
         si_form.setVisible(true);
         si_slide.setToX(0);
         si_slide.play();
+    }
+
+    // Submit register form
+    @FXML
+    void register(ActionEvent event) {
+        Map<String, String> registerInfo = new HashMap<>();
+        registerInfo.put("username", su_username.getText());
+        registerInfo.put("password", su_password.getText());
+        registerInfo.put("email", su_email.getText());
+
+        try {
+            String body = mapper.writer()
+                                .writeValueAsString(registerInfo);
+            HttpRequest request = HttpRequest.newBuilder()
+                                             .uri(URI.create(AppConstant.API_LINK.get("register")))
+                                             .header("Content-type", "application/json")
+                                             .POST(HttpRequest.BodyPublishers.ofString(body))
+                                             .build();
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            int status = response.statusCode();
+            if (status >= 200 && status <= 299) {
+                showAlert(Alert.AlertType.INFORMATION, "Register Successfully");
+                su_username.setText("");
+                su_password.setText("");
+                su_email.setText("");
+            } else {
+                Object response_obj = mapper.readValue(response.body(), Object.class);
+                Map<?, ?> res_map = (Map<?, ?>) response_obj;
+                StringBuilder content = new StringBuilder();
+                res_map.forEach((key, value) -> content.append(key.toString())
+                                                       .append(": ")
+                                                       .append(value.toString())
+                                                       .append("\n"));
+                showAlert(Alert.AlertType.INFORMATION, String.valueOf(content));
+            }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "INTERNAL_SERVER_ERROR");
+        }
     }
 
     @FXML
@@ -110,7 +148,7 @@ public class LoginController
                                 .writeValueAsString(loginInfo);
 
             HttpRequest request = HttpRequest.newBuilder()
-                                             .uri(URI.create(AppConstant.BASE_URL + "/auth/login"))
+                                             .uri(URI.create(AppConstant.API_LINK.get("login")))
                                              .header("Content-type", "application/json")
                                              .POST(HttpRequest.BodyPublishers.ofString(body))
                                              .build();
@@ -146,8 +184,6 @@ public class LoginController
 
                     stage.show();
                 }
-
-
                 si_form.getScene()
                        .getWindow()
                        .hide();
@@ -156,10 +192,8 @@ public class LoginController
             }
 
         } catch (Exception e) {
-           e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "INTERNAL_SERVER_ERROR");
         }
-
-
     }
 
 

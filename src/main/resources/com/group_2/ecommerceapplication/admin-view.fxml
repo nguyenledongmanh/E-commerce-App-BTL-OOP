@@ -265,9 +265,9 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="product_layout" layoutX="11.0" layoutY="250.0" prefHeight="682.0" prefWidth="1045.0" stylesheets="@css/admin-view.css" visible="false">
+            <AnchorPane fx:id="product_layout" layoutX="11.0" layoutY="250.0" prefHeight="682.0" prefWidth="1045.0" stylesheets="@css/admin-view.css">
                <children>
-                  <ScrollPane layoutX="7.0" layoutY="7.0" prefHeight="671.0" prefWidth="1033.0" style="-fx-background-color: #fff;" stylesheets="@css/admin-view.css">
+                  <ScrollPane fx:id="products_pane" layoutX="7.0" layoutY="7.0" prefHeight="671.0" prefWidth="1033.0" style="-fx-background-color: #fff;" stylesheets="@css/admin-view.css" visible="false">
                      <content>
                         <GridPane fx:id="product_container">
                           <rowConstraints>
@@ -281,6 +281,7 @@
                         <String fx:value="transparent" />
                      </styleClass>
                   </ScrollPane>
+                  <Label fx:id="prompt_products" layoutX="352.0" layoutY="343.0" text="Empty product list. Let's create some new products." />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="categories_layout" layoutX="11.0" layoutY="250.0" prefHeight="682.0" prefWidth="1045.0" visible="false">
