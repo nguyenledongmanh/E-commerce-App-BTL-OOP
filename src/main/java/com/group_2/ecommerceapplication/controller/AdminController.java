@@ -113,7 +113,7 @@ public class AdminController
     void choose_file(ActionEvent event) throws
             URISyntaxException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("/home/dell/Downloads/"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
             Image image = new Image(file.toURI()
