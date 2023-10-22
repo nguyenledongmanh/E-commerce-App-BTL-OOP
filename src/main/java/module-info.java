@@ -5,7 +5,6 @@ module com.group_2.ecommerceapplication {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires org.json;
-    requires static lombok;
     requires java.net.http;
     requires org.apache.httpcomponents.httpcore;
     requires org.apache.httpcomponents.httpclient;
