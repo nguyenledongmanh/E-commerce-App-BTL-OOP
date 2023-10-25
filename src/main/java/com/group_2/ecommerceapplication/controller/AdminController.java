@@ -154,8 +154,16 @@ public class AdminController
                 categories.add(category);
                 clearCatInfo();
                 num_of_categories.setText(String.valueOf(categories.size()));
-            } else
-                throw new Exception("INTERNAL_SERVER_ERROR");
+            } else {
+                Object response_obj = mapper.readValue(httpResponse.body(), Object.class);
+                Map<?, ?> res_map = (Map<?, ?>) response_obj;
+                StringBuilder content = new StringBuilder();
+                res_map.forEach((key, value) -> content.append(key.toString())
+                                                       .append(": ")
+                                                       .append(value.toString())
+                                                       .append("\n"));
+                showAlert(Alert.AlertType.INFORMATION, String.valueOf(content));
+            }
 
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "INTERNAL_SERVER_ERROR");
